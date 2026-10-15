@@ -157,6 +157,28 @@ jobs:
           sed -i -e 's|2ded7f146437a761ffe6981e2f742038f85ca68d|08a471bb8ceccdd50483c81cdfa8b81b07b14b87|' ./flutter/pubspec.lock
           sed -i -e 's|2ded7f146437a761ffe6981e2f742038f85ca68d|08a471bb8ceccdd50483c81cdfa8b81b07b14b87|' ./flutter/pubspec.yaml
       
+      - name: Apply GL!TCH controller patches (force-login, no-ID-box)
+        shell: bash
+        env:
+          APPNAME: ${{ env.appname }}
+        run: |
+          set -e
+          echo "== GL!TCH controller patches; appname: '$APPNAME' =="
+          if [[ "$APPNAME" == *Connect* ]]; then
+            echo 'LS0tIGEvZmx1dHRlci9saWIvZGVza3RvcC9wYWdlcy9kZXNrdG9wX2hvbWVfcGFnZS5kYXJ0CisrKyBiL2ZsdXR0ZXIvbGliL2Rlc2t0b3AvcGFnZXMvZGVza3RvcF9ob21lX3BhZ2UuZGFydApAQCAtOCw2ICs4LDcgQEAKIGltcG9ydCAncGFja2FnZTpmbHV0dGVyX2hiYi9jb21tb24uZGFydCc7CiBpbXBvcnQgJ3BhY2thZ2U6Zmx1dHRlcl9oYmIvY29tbW9uL3dpZGdldHMvYW5pbWF0ZWRfcm90YXRpb25fd2lkZ2V0LmRhcnQnOwogaW1wb3J0ICdwYWNrYWdlOmZsdXR0ZXJfaGJiL2NvbW1vbi93aWRnZXRzL2N1c3RvbV9wYXNzd29yZC5kYXJ0JzsKK2ltcG9ydCAncGFja2FnZTpmbHV0dGVyX2hiYi9jb21tb24vd2lkZ2V0cy9sb2dpbi5kYXJ0JzsKIGltcG9ydCAncGFja2FnZTpmbHV0dGVyX2hiYi9jb25zdHMuZGFydCc7CiBpbXBvcnQgJ3BhY2thZ2U6Zmx1dHRlcl9oYmIvZGVza3RvcC9wYWdlcy9jb25uZWN0aW9uX3BhZ2UuZGFydCc7CiBpbXBvcnQgJ3BhY2thZ2U6Zmx1dHRlcl9oYmIvZGVza3RvcC9wYWdlcy9kZXNrdG9wX3NldHRpbmdfcGFnZS5kYXJ0JzsKQEAgLTYwLDE0ICs2MSwzOCBAQAogICAgIHN1cGVyLmJ1aWxkKGNvbnRleHQpOwogICAgIGZpbmFsIGlzSW5jb21pbmdPbmx5ID0gYmluZC5pc0luY29taW5nT25seSgpOwogICAgIHJldHVybiBfYnVpbGRCbG9jaygKLSAgICAgICAgY2hpbGQ6IFJvdygKLSAgICAgIGNyb3NzQXhpc0FsaWdubWVudDogQ3Jvc3NBeGlzQWxpZ25tZW50LnN0YXJ0LAotICAgICAgY2hpbGRyZW46IFsKLSAgICAgICAgYnVpbGRMZWZ0UGFuZShjb250ZXh0KSwKLSAgICAgICAgaWYgKCFpc0luY29taW5nT25seSkgY29uc3QgVmVydGljYWxEaXZpZGVyKHdpZHRoOiAxKSwKLSAgICAgICAgaWYgKCFpc0luY29taW5nT25seSkgRXhwYW5kZWQoY2hpbGQ6IGJ1aWxkUmlnaHRQYW5lKGNvbnRleHQpKSwKLSAgICAgIF0sCi0gICAgKSk7CisgICAgICAgIGNoaWxkOiBPYngoKCkgPT4gZ0ZGSS51c2VyTW9kZWwudXNlck5hbWUudmFsdWUuaXNFbXB0eQorICAgICAgICAgICAgPyBfZ2xpdGNoTG9naW5HYXRlKGNvbnRleHQpCisgICAgICAgICAgICA6IFJvdygKKyAgICAgICAgICAgICAgICBjcm9zc0F4aXNBbGlnbm1lbnQ6IENyb3NzQXhpc0FsaWdubWVudC5zdGFydCwKKyAgICAgICAgICAgICAgICBjaGlsZHJlbjogWworICAgICAgICAgICAgICAgICAgYnVpbGRMZWZ0UGFuZShjb250ZXh0KSwKKyAgICAgICAgICAgICAgICAgIGlmICghaXNJbmNvbWluZ09ubHkpIGNvbnN0IFZlcnRpY2FsRGl2aWRlcih3aWR0aDogMSksCisgICAgICAgICAgICAgICAgICBpZiAoIWlzSW5jb21pbmdPbmx5KQorICAgICAgICAgICAgICAgICAgICBFeHBhbmRlZChjaGlsZDogYnVpbGRSaWdodFBhbmUoY29udGV4dCkpLAorICAgICAgICAgICAgICAgIF0sCisgICAgICAgICAgICAgICkpKTsKKyAgfQorCisgIFdpZGdldCBfZ2xpdGNoTG9naW5HYXRlKEJ1aWxkQ29udGV4dCBjb250ZXh0KSB7CisgICAgcmV0dXJuIENlbnRlcigKKyAgICAgIGNoaWxkOiBDb2x1bW4oCisgICAgICAgIG1haW5BeGlzU2l6ZTogTWFpbkF4aXNTaXplLm1pbiwKKyAgICAgICAgY2hpbGRyZW46IFsKKyAgICAgICAgICBjb25zdCBUZXh0KCdHTCFUQ0ggUmVtb3RlJywKKyAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMjgsIGZvbnRXZWlnaHQ6IEZvbnRXZWlnaHQuYm9sZCkpLAorICAgICAgICAgIGNvbnN0IFNpemVkQm94KGhlaWdodDogMTIpLAorICAgICAgICAgIGNvbnN0IFRleHQoJ1BsZWFzZSBzaWduIGluIHRvIGNvbnRpbnVlJywKKyAgICAgICAgICAgICAgc3R5bGU6IFRleHRTdHlsZShmb250U2l6ZTogMTYpKSwKKyAgICAgICAgICBjb25zdCBTaXplZEJveChoZWlnaHQ6IDI0KSwKKyAgICAgICAgICBFbGV2YXRlZEJ1dHRvbi5pY29uKAorICAgICAgICAgICAgaWNvbjogY29uc3QgSWNvbihJY29ucy5sb2dpbiksCisgICAgICAgICAgICBsYWJlbDogY29uc3QgVGV4dCgnTG9naW4nKSwKKyAgICAgICAgICAgIG9uUHJlc3NlZDogKCkgPT4gbG9naW5EaWFsb2coKSwKKyAgICAgICAgICApLAorICAgICAgICBdLAorICAgICAgKSwKKyAgICApOwogICB9CiAKICAgV2lkZ2V0IF9idWlsZEJsb2NrKHtyZXF1aXJlZCBXaWRnZXQgY2hpbGR9KSB7Cg==' | base64 -d > glitch-force-login.diff
+            git apply --verbose glitch-force-login.diff
+            echo "force-login applied"
+            if [[ "$APPNAME" != *Tech* ]]; then
+              echo 'LS0tIGEvZmx1dHRlci9saWIvZGVza3RvcC9wYWdlcy9jb25uZWN0aW9uX3BhZ2UuZGFydAorKysgYi9mbHV0dGVyL2xpYi9kZXNrdG9wL3BhZ2VzL2Nvbm5lY3Rpb25fcGFnZS5kYXJ0CkBAIC0zMDksMTMgKzMwOSw2IEBACiAgICAgICAgIEV4cGFuZGVkKAogICAgICAgICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICAgICBjaGlsZHJlbjogWwotICAgICAgICAgICAgUm93KAotICAgICAgICAgICAgICBjaGlsZHJlbjogWwotICAgICAgICAgICAgICAgIEZsZXhpYmxlKGNoaWxkOiBfYnVpbGRSZW1vdGVJRFRleHRGaWVsZChjb250ZXh0KSksCi0gICAgICAgICAgICAgIF0sCi0gICAgICAgICAgICApLm1hcmdpbk9ubHkodG9wOiAyMiksCi0gICAgICAgICAgICBTaXplZEJveChoZWlnaHQ6IDEyKSwKLSAgICAgICAgICAgIERpdmlkZXIoKS5wYWRkaW5nT25seShyaWdodDogMTIpLAogICAgICAgICAgICAgRXhwYW5kZWQoY2hpbGQ6IFBlZXJUYWJQYWdlKCkpLAogICAgICAgICAgIF0sCiAgICAgICAgICkucGFkZGluZ09ubHkobGVmdDogMTIuMCkpLAo=' | base64 -d > glitch-no-idbox.diff
+              git apply --verbose glitch-no-idbox.diff
+              echo "no-ID-box applied (client build)"
+            else
+              echo "ID box kept (Tech build)"
+            fi
+          else
+            echo "Not a GlitchConnect build; GL!TCH controller patches skipped"
+          fi
+
       - name: change appname to custom
         if: env.appname != 'rustdesk'
         continue-on-error: true

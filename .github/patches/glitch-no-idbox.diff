@@ -1,0 +1,16 @@
+--- a/flutter/lib/desktop/pages/connection_page.dart
++++ b/flutter/lib/desktop/pages/connection_page.dart
+@@ -309,13 +309,6 @@
+         Expanded(
+             child: Column(
+           children: [
+-            Row(
+-              children: [
+-                Flexible(child: _buildRemoteIDTextField(context)),
+-              ],
+-            ).marginOnly(top: 22),
+-            SizedBox(height: 12),
+-            Divider().paddingOnly(right: 12),
+             Expanded(child: PeerTabPage()),
+           ],
+         ).paddingOnly(left: 12.0)),

@@ -1,0 +1,57 @@
+--- a/flutter/lib/desktop/pages/desktop_home_page.dart
++++ b/flutter/lib/desktop/pages/desktop_home_page.dart
+@@ -8,6 +8,7 @@
+ import 'package:flutter_hbb/common.dart';
+ import 'package:flutter_hbb/common/widgets/animated_rotation_widget.dart';
+ import 'package:flutter_hbb/common/widgets/custom_password.dart';
++import 'package:flutter_hbb/common/widgets/login.dart';
+ import 'package:flutter_hbb/consts.dart';
+ import 'package:flutter_hbb/desktop/pages/connection_page.dart';
+ import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
+@@ -60,14 +61,38 @@
+     super.build(context);
+     final isIncomingOnly = bind.isIncomingOnly();
+     return _buildBlock(
+-        child: Row(
+-      crossAxisAlignment: CrossAxisAlignment.start,
+-      children: [
+-        buildLeftPane(context),
+-        if (!isIncomingOnly) const VerticalDivider(width: 1),
+-        if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
+-      ],
+-    ));
++        child: Obx(() => gFFI.userModel.userName.value.isEmpty
++            ? _glitchLoginGate(context)
++            : Row(
++                crossAxisAlignment: CrossAxisAlignment.start,
++                children: [
++                  buildLeftPane(context),
++                  if (!isIncomingOnly) const VerticalDivider(width: 1),
++                  if (!isIncomingOnly)
++                    Expanded(child: buildRightPane(context)),
++                ],
++              )));
++  }
++
++  Widget _glitchLoginGate(BuildContext context) {
++    return Center(
++      child: Column(
++        mainAxisSize: MainAxisSize.min,
++        children: [
++          const Text('GL!TCH Remote',
++              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
++          const SizedBox(height: 12),
++          const Text('Please sign in to continue',
++              style: TextStyle(fontSize: 16)),
++          const SizedBox(height: 24),
++          ElevatedButton.icon(
++            icon: const Icon(Icons.login),
++            label: const Text('Login'),
++            onPressed: () => loginDialog(),
++          ),
++        ],
++      ),
++    );
+   }
+ 
+   Widget _buildBlock({required Widget child}) {
