@@ -728,6 +728,21 @@ jobs:
           '@ | Set-Content -Path glitch_shortcut.py -Encoding utf8
             python glitch_shortcut.py "$displayname"
           }
+          # GL!TCH: install the remote printer by default on Host builds (RustDesk ships it unchecked)
+          if ($myappname -match '^glitch.*host') {
+            @'
+          p = "Package/Fragments/ShortcutProperties.wxs"
+          b = open(p, "rb").read()
+          old = b'<Property Id="PRINTER" Secure="yes"></Property>'
+          new = b'<Property Id="PRINTER" Value="1" Secure="yes"></Property>'
+          if b.count(old) == 1:
+              open(p, "wb").write(b.replace(old, new, 1))
+              print("PRINTER now defaults to installed")
+          else:
+              print("WARNING: PRINTER default line not found; printer stays optional")
+          '@ | Set-Content -Path glitch_printer.py -Encoding utf8
+            python glitch_printer.py
+          }
           nuget restore msi.sln
           msbuild msi.sln -p:Configuration=Release -p:Platform=x64 /p:TargetVersion=Windows10
           cp ./Package/bin/x64/Release/en-us/Package.msi ../../SignOutput/rustdesk-latest.msi
