@@ -161,8 +161,10 @@ jobs:
         shell: bash
         env:
           APPNAME: ${{ env.appname }}
+          RUNNO: ${{ github.run_number }}
         run: |
           set -e
+          BUILDTAG="build $RUNNO, $(date -u +%b-%d' '%H:%M) UTC"
           echo "== GL!TCH controller patches; appname: '$APPNAME' =="
           LC="${APPNAME,,}"
           HOMEPAGE=flutter/lib/desktop/pages/desktop_home_page.dart
@@ -171,13 +173,13 @@ jobs:
             git apply --verbose glitch-force-login.diff
             echo "force-login applied"
             if [[ "$LC" != *tech* ]]; then
-              MSG="GlitchConnect enables you to connect remotely to your station."
+              MSG="GlitchConnect enables you to connect remotely to your station. ($BUILDTAG)"
               echo 'LS0tIGEvZmx1dHRlci9saWIvZGVza3RvcC9wYWdlcy9jb25uZWN0aW9uX3BhZ2UuZGFydAorKysgYi9mbHV0dGVyL2xpYi9kZXNrdG9wL3BhZ2VzL2Nvbm5lY3Rpb25fcGFnZS5kYXJ0CkBAIC0zMDksMTMgKzMwOSw2IEBACiAgICAgICAgIEV4cGFuZGVkKAogICAgICAgICAgICAgY2hpbGQ6IENvbHVtbigKICAgICAgICAgICBjaGlsZHJlbjogWwotICAgICAgICAgICAgUm93KAotICAgICAgICAgICAgICBjaGlsZHJlbjogWwotICAgICAgICAgICAgICAgIEZsZXhpYmxlKGNoaWxkOiBfYnVpbGRSZW1vdGVJRFRleHRGaWVsZChjb250ZXh0KSksCi0gICAgICAgICAgICAgIF0sCi0gICAgICAgICAgICApLm1hcmdpbk9ubHkodG9wOiAyMiksCi0gICAgICAgICAgICBTaXplZEJveChoZWlnaHQ6IDEyKSwKLSAgICAgICAgICAgIERpdmlkZXIoKS5wYWRkaW5nT25seShyaWdodDogMTIpLAogICAgICAgICAgICAgRXhwYW5kZWQoY2hpbGQ6IFBlZXJUYWJQYWdlKCkpLAogICAgICAgICAgIF0sCiAgICAgICAgICkucGFkZGluZ09ubHkobGVmdDogMTIuMCkpLAo=' | base64 -d > glitch-no-idbox.diff
               git apply --verbose glitch-no-idbox.diff
               echo "no-ID-box applied (client build)"
             else
               echo "ID box kept (Tech build)"
-              MSG="GlitchTech: technician console for connecting to client stations."
+              MSG="GlitchTech: technician console for connecting to client stations. ($BUILDTAG)"
             fi
             sed -i "s|translate(\"outgoing_only_desk_tip\")|'$MSG'|" "$HOMEPAGE"
             grep -q "login.dart" "$HOMEPAGE" && grep -q "_glitchLoginGate" "$HOMEPAGE" || { echo "ERROR: force-login patch missing"; exit 1; }
