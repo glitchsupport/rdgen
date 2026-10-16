@@ -311,7 +311,8 @@ def generate_custom_client(params, full_url):
         "ref":_settings.GHBRANCH,
         "inputs":{
             "version":version,
-            "zip_url":zip_url
+            "zip_url":zip_url,
+            "label":filename
         },
         "return_run_details": True
     } 

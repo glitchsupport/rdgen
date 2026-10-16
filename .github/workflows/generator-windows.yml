@@ -1,5 +1,5 @@
 name: Custom Windows Client Generator
-run-name: Custom Windows Client Generator
+run-name: ${{ inputs.label && format('{0} - {1}', 'Windows', inputs.label) || 'Custom Windows Client Generator' }}
 on: 
   workflow_dispatch:
     inputs:
@@ -11,6 +11,11 @@ on:
       zip_url:
         description: 'url to zip of json'
         required: true
+        default: ''
+        type: string
+      label:
+        description: 'build label (shown in run name)'
+        required: false
         default: ''
         type: string
 
