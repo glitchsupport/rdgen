@@ -166,6 +166,7 @@ jobs:
           set -e
           BUILDTAG="build $RUNNO, $(date -u +%b-%d' '%H:%M) UTC"
           echo "== GL!TCH controller patches; appname: '$APPNAME' =="
+          echo "::notice title=GL!TCH patch step::run $RUNNO appname='$APPNAME'"
           LC="${APPNAME,,}"
           HOMEPAGE=flutter/lib/desktop/pages/desktop_home_page.dart
           if [[ "$LC" == *connect* || "$LC" == *tech* ]]; then
@@ -185,8 +186,10 @@ jobs:
             grep -q "login.dart" "$HOMEPAGE" && grep -q "_glitchLoginGate" "$HOMEPAGE" || { echo "ERROR: force-login patch missing"; exit 1; }
             grep -q "$MSG" "$HOMEPAGE" || { echo "ERROR: sidebar text patch missing"; exit 1; }
             echo "sidebar text set: $MSG"
+            echo "::notice title=GL!TCH patches applied::loginGate=$(grep -c _glitchLoginGate "$HOMEPAGE") idbox_removed=$(grep -c 'PeerTabPage' flutter/lib/desktop/pages/connection_page.dart) $BUILDTAG"
           else
             echo "Not a GlitchConnect/GlitchTech build; GL!TCH controller patches skipped"
+            echo "::notice title=GL!TCH patches SKIPPED::appname='$APPNAME'"
           fi
 
       - name: change appname to custom
