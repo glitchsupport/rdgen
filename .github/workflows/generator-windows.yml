@@ -326,6 +326,11 @@ jobs:
             grep -q "mainSetPeerOption(id: p.id, key: 'alias'" flutter/lib/models/group_model.dart || { echo "ERROR: cross-window alias persistence fix missing"; exit 1; }
             echo "Group-tab aliases now persisted locally for cross-window session-title lookup"
 
+            echo 'LS0tIGEvZmx1dHRlci9saWIvY29tbW9uL3dpZGdldHMvcGVlcl9jYXJkLmRhcnQKKysrIGIvZmx1dHRlci9saWIvY29tbW9uL3dpZGdldHMvcGVlcl9jYXJkLmRhcnQKQEAgLTkyLDcgKzkyLDE0IEBACiAgIH0KIH0KIAotV2lkZ2V0IGdyb3VwRmF2U3RhckJ1dHRvbihQZWVyIHBlZXIpID0+IEdyb3VwRmF2U3RhckJ1dHRvbihwZWVyOiBwZWVyKTsKKy8vIEdMIVRDSCAoMjAyNi0xMS0xMik6IHdpdGhvdXQgYSBrZXksIEZsdXR0ZXIgY2FuIHJldXNlIHRoaXMgYnV0dG9uJ3MgU3RhdGUKKy8vIChpbmNsdWRpbmcgaXRzIGNhY2hlZCBgaXNGYXZgKSBhY3Jvc3MgYSBkaWZmZXJlbnQgcGVlciB3aGVuIHRoZSBsaXN0CisvLyByZW9yZGVycyAtIGUuZy4gc2VhcmNoaW5nIHRoZSBHcm91cCB0YWIgcmVzaHVmZmxlcyB3aGljaCBwZWVyIGxhbmRzIGF0IGEKKy8vIGdpdmVuIHJvdywgYW5kIHRoZSByb3cgaW5oZXJpdGVkIHRoZSBwcmV2aW91cyBvY2N1cGFudCdzIHN0YXIgc3RhdGUKKy8vIGluc3RlYWQgb2YgcmUtY2hlY2tpbmcgdGhlIG5ldyBvbmUuIEtleWluZyBieSBwZWVyIGlkIGZvcmNlcyBhIGZyZXNoCisvLyBTdGF0ZSAoYW5kIGZyZXNoIG1haW5HZXRGYXYoKSBjaGVjaykgd2hlbmV2ZXIgdGhlIHBlZXIgYXQgdGhhdCByb3cgY2hhbmdlcy4KK1dpZGdldCBncm91cEZhdlN0YXJCdXR0b24oUGVlciBwZWVyKSA9PgorICAgIEdyb3VwRmF2U3RhckJ1dHRvbihrZXk6IFZhbHVlS2V5KHBlZXIuaWQpLCBwZWVyOiBwZWVyKTsKIAogLy8gR0whVENIOiBBZG1pbi9UZWNoIGluLWFwcCByZW5hbWUgKyBub3RlIGVkaXQgKExhd3JlbmNlLCAyMDI2LTExLTExKSAtIFBVVHMKIC8vIHN0cmFpZ2h0IHRvIENvcnRlbkRlc2sncyBvd24gYWxpYXMvbm90ZSBjb2x1bW5zICh0aGUgc2FtZSBmaWVsZHMgYW5kCg==' | base64 -d > glitch-32-fav-star-key-fix.diff
+            git apply --verbose glitch-32-fav-star-key-fix.diff
+            grep -q "GroupFavStarButton(key: ValueKey(peer.id)" flutter/lib/common/widgets/peer_card.dart || { echo "ERROR: favorite-star key fix missing"; exit 1; }
+            echo "Group-tab favorite star keyed by peer id (fixes stale star on search)"
+
             echo "::notice title=GL!TCH patches applied::loginGate=$(grep -c _glitchLoginGate "$HOMEPAGE") techGate=$(grep -c canSeeDeviceId flutter/lib/desktop/pages/connection_page.dart) $BUILDTAG"
           else
             echo "Not a GlitchConnect/GlitchTech build; GL!TCH controller patches skipped"
