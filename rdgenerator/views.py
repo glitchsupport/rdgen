@@ -231,7 +231,14 @@ def generate_custom_client(params, full_url):
         for line in overrideManual.splitlines():
             if '=' in line:
                 k, value = line.split('=', 1)
-                decodedCustom['override-settings'][k.strip()] = value.strip()
+                # GL!TCH (2026-11-11): these are build-locked UI/behavior
+                # flags (hide-*, disable-*, etc.) read by the client via
+                # mainGetHardOption()/HARD_SETTINGS, which read_custom_client()
+                # only populates from TOP-LEVEL keys - nesting them under
+                # 'override-settings' (OVERWRITE_SETTINGS/Config::get_option)
+                # silently never took effect. Matches the existing top-level
+                # pattern used above for conn-type/disable-installation/etc.
+                decodedCustom[k.strip()] = value.strip()
     
     decodedCustomJson = json.dumps(decodedCustom)
 
