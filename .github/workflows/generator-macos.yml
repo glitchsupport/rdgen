@@ -156,7 +156,7 @@ jobs:
           BUILDTAG="build $RUNNO, $(date -u +%b-%d' '%H:%M) UTC"
           echo "== GL!TCH controller patches; appname: '$GL_APP' filename: '$FNAME' =="
           echo "::notice title=GL!TCH patch step::run $RUNNO appname='$GL_APP' filename='$FNAME'"
-          LC="${GL_APP,,} ${FNAME,,}"
+          LC="$(printf '%s %s' "$GL_APP" "$FNAME" | tr '[:upper:]' '[:lower:]')"
           HOMEPAGE=flutter/lib/desktop/pages/desktop_home_page.dart
           if [[ "$LC" == *connect* || "$LC" == *tech* ]]; then
             # GitHub-hosted Windows runners often default core.autocrlf=true,
