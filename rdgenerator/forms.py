@@ -77,6 +77,7 @@ class GenerateForm(forms.Form):
     enableRemoteRestart = forms.BooleanField(initial=True, required=False)
     enableRecording = forms.BooleanField(initial=True, required=False)
     enableBlockingInput = forms.BooleanField(initial=True, required=False)
+    enablePrivacyMode = forms.BooleanField(initial=True, required=False)
     enableRemoteModi = forms.BooleanField(initial=False, required=False)
     hidecm = forms.BooleanField(initial=False, required=False)
     enablePrinter = forms.BooleanField(initial=True, required=False)

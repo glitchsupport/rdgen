@@ -100,6 +100,7 @@ def generate_custom_client(params, full_url):
     enableRemoteRestart = params.get('enableRemoteRestart', True)
     enableRecording = params.get('enableRecording', True)
     enableBlockingInput = params.get('enableBlockingInput', True)
+    enablePrivacyMode = params.get('enablePrivacyMode', True)
     enableRemoteModi = params.get('enableRemoteModi', False)
     removeWallpaper = params.get('removeWallpaper', True)
     defaultManual = params.get('defaultManual', '')
@@ -187,6 +188,7 @@ def generate_custom_client(params, full_url):
         decodedCustom['default-settings']['enable-remote-restart'] = 'Y' if enableRemoteRestart else 'N'
         decodedCustom['default-settings']['enable-record-session'] = 'Y' if enableRecording else 'N'
         decodedCustom['default-settings']['enable-block-input'] = 'Y' if enableBlockingInput else 'N'
+        decodedCustom['default-settings']['enable-privacy-mode'] = 'Y' if enablePrivacyMode else 'N'
         decodedCustom['default-settings']['allow-remote-config-modification'] = 'Y' if enableRemoteModi else 'N'
         decodedCustom['default-settings']['direct-server'] = 'Y' if enableDirectIP else 'N'
         decodedCustom['default-settings']['verification-method'] = 'use-permanent-password' if hidecm else 'use-both-passwords'
@@ -208,6 +210,7 @@ def generate_custom_client(params, full_url):
         decodedCustom['override-settings']['enable-remote-restart'] = 'Y' if enableRemoteRestart else 'N'
         decodedCustom['override-settings']['enable-record-session'] = 'Y' if enableRecording else 'N'
         decodedCustom['override-settings']['enable-block-input'] = 'Y' if enableBlockingInput else 'N'
+        decodedCustom['override-settings']['enable-privacy-mode'] = 'Y' if enablePrivacyMode else 'N'
         decodedCustom['override-settings']['allow-remote-config-modification'] = 'Y' if enableRemoteModi else 'N'
         decodedCustom['override-settings']['direct-server'] = 'Y' if enableDirectIP else 'N'
         decodedCustom['override-settings']['verification-method'] = 'use-permanent-password' if hidecm else 'use-both-passwords'
