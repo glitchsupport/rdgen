@@ -1,6 +1,6 @@
 name: Custom macOS Client Generator
-run-name: Custom macOS Client Generator
-on: 
+run-name: ${{ inputs.label && format('{0} - {1}', 'macOS', inputs.label) || 'Custom macOS Client Generator' }}
+on:
   workflow_dispatch:
     inputs:
       version:
@@ -11,6 +11,11 @@ on:
       zip_url:
         description: 'url to zip of json'
         required: true
+        default: ''
+        type: string
+      label:
+        description: 'build label (shown in run name)'
+        required: false
         default: ''
         type: string
 
